@@ -1,0 +1,7 @@
+---
+import { P, M } from '../lib.js';
+const { faqs } = Astro.props;
+const graph = [{ '@type':'Organization', name:P.brand, email:P.email, areaServed:M.name }];
+if (faqs?.length) graph.push({ '@type':'FAQPage', mainEntity: faqs.map(f=>({ '@type':'Question', name:f.q, acceptedAnswer:{ '@type':'Answer', text:f.a } })) });
+---
+<script type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@graph':graph })} />
