@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import { P, M } from '../lib.js';
+const req=['Company details and a primary dispatch contact','Current state operating license (copy)','Commercial insurance certificate (copy)','The vehicle classes you operate and where you operate them'];
+---
+<Base title={`Partner Requirements | ${M.short} | Atlantic Coast`.slice(0,60)} description={`What a limo or coach company needs to join Atlantic Coast Transportation in ${M.short}: license, insurance, vehicles and service area.`.slice(0,155)}>
+<section class="sec"><div class="wrap prose"><h1 style="font-size:clamp(2rem,4vw,3rem)">Have these ready</h1><hr class="rule" />
+<p>Upload your documents with the application. Our team reviews every license and insurance certificate before a company joins the network.</p>
+<ul class="facts">{req.map(r=><li>{r}</li>)}</ul>
+<p style="margin-top:2rem"><a class="btn" href={P.applyUrl} rel="noopener">Start your application</a></p></div></section>
+</Base>

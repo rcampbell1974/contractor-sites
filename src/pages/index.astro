@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { P, M, locs, key } from '../lib.js';
+const benefits=[['Trips sent to you','Qualified requests that match your vehicles and service area arrive by email. No lead chasing.'],['Quote your own price','You set your price. Commission applies only to trips you win, with terms confirmed when you are approved.'],['A vetted network','Every partner is verified, so customers book with confidence and you compete with legitimate operators.']];
+const steps=[['Apply','Register your company and add your vehicle classes and service area.'],['Documents reviewed','Upload your state license and insurance certificate. Our team reviews both before approval.'],['Receive requests','Approved partners get matching trip requests by email and quote their own price.']];
+const vehicles=['Sedan','SUV','Limousine','Party bus','Shuttle bus','Coach'];
+const faqs=[
+ {q:'Who can apply?',a:'Licensed and insured limousine, black-car, party bus, shuttle and coach companies.'},
+ {q:'What documents do I need?',a:'Company details, a primary dispatch contact, a copy of your current state operating license, a commercial insurance certificate, and the vehicle classes and areas you serve.'},
+ {q:'Do I set my own prices?',a:'Yes. You quote your own price for each request.'},
+ {q:'What does it cost?',a:'Commission applies only to trips you win. Terms are confirmed when you are approved.'},
+ {q:'Where do I apply?',a:'Applications are handled in our RideBroker partner portal. The Apply button on this page opens it.'}];
+---
+<Base title={M.title} description={M.desc} faqs={faqs}>
+<section class="band hero" style="background-image:url(/img/hero.webp)"><div class="wrap band-in" style="grid-template-columns:1fr">
+  <div><span class="eyebrow">Partner program · {M.name}</span>
+  <h1>{M.h1}</h1><hr class="rule" />
+  <p class="lede">Licensed and insured limousine, black-car, party bus and coach companies: join the network and receive vetted reservation requests{key==='hub'?' for Kiawah, Seabrook and Charleston':` for ${M.name}`}.</p>
+  <div class="cta-row"><a class="btn" href={P.applyUrl} rel="noopener">Register your company</a><a class="btn btn-ghost" href="/requirements/">See requirements</a></div>
+  <div class="chips"><span>You quote your own price</span><span>Documents reviewed before approval</span><span>Commission only on trips you win</span></div></div>
+</div></section>
+
+<section class="sec"><div class="wrap"><div class="grid g3">{benefits.map(([t,b])=><div class="card"><div class="pad"><h3>{t}</h3><p>{b}</p></div></div>)}</div></div></section>
+
+<section class="sec dark" id="how"><div class="wrap"><div class="sec-head"><h2>How it works</h2></div>
+<div class="grid g3 steps">{steps.map(([t,b])=><div class="step"><h3>{t}</h3><p>{b}</p></div>)}</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="sec-head"><h2>Vehicle classes we need</h2><p>List the classes you operate when you apply.</p></div>
+<div class="grid g3">{vehicles.map(v=><div class="card"><div class="pad"><h3>{v}</h3></div></div>)}</div></div></section>
+
+<section class="sec alt"><div class="wrap"><div class="sec-head"><h2>Operating notes for {M.name}</h2><p>Access facts that matter when you run trips here. Confirm current rules before each trip.</p></div>
+{locs.map(l=><div style="margin-bottom:2rem"><h3>{l.name}</h3><ul class="facts">{l.facts.map(f=><li>{f}</li>)}</ul><p class="src" style="margin-top:.8rem">Sources: {l.sources.map(s=><span><a href={s.u} rel="noopener nofollow">{s.t}</a>{" "}</span>)}</p></div>)}
+{key==='hub' && <div class="grid g3">{Object.entries(P.markets).filter(([k])=>k!=='hub').map(([k,m])=><a class="card" href={`https://${m.host}/`}><div class="pad"><h3>{m.name}</h3><span class="more">Partner page</span></div></a>)}</div>}
+</div></section>
+
+<section class="sec" id="faq"><div class="wrap prose faq"><h2>Questions</h2>{faqs.map(f=><details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+<p style="margin-top:2rem"><a class="btn" href={P.applyUrl} rel="noopener">Apply now</a></p></div></section>
+</Base>
